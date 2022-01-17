@@ -52,12 +52,12 @@ class AppFixtures extends Fixture
             $manager->flush();
         }
 
-        for($i = 0 ; $i < 10 ; $i++)
+        for($i = 0 ; $i < 15 ; $i++)
         {
             $article = new Article();
 
             $id_category = rand(41, 50);
-            $id_writer = rand(9, 16);
+            $id_writer = rand(17, 24);
 
             $category = $this->categoryRepository->find($id_category);
             $writer = $this->writerRepository->find($id_writer);
