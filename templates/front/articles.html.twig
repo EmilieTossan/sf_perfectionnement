@@ -2,4 +2,16 @@
 
 {% block title %}Articles{% endblock %}
 
-{% block main %}{% endblock %}
+{% block main %}
+
+    {% for article in articles %}
+
+        {% if article.published == 1 %}
+
+            <h2><a href="{{ path("article_show", {'id' : article.id})}}">{{ article.title }}</a></h2>
+
+        {% endif %}
+
+    {% endfor %}
+
+{% endblock %}

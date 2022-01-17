@@ -1,5 +1,10 @@
 {% extends "front/base.html.twig" %}
 
-{% block title %}{% endblock %}
+{% block title %}{{ article.title }}{% endblock %}
 
-{% block main %}{% endblock %}
+{% block main %}
+
+    <h2>{{ article.title }}</h2>
+    <p>{{ article.content }}</p>
+
+{% endblock %}

@@ -2,4 +2,12 @@
 
 {% block title %}Catégories{% endblock %}
 
-{% block main %}{% endblock %}
+{% block main %}
+
+    {% for category in categories %}
+
+        <h2><a href="{{ path("category_show", {'id' : category.id})}}">{{ category.name }}</a></h2>
+
+    {% endfor %}
+
+{% endblock %}

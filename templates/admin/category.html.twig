@@ -1,5 +1,10 @@
 {% extends "admin/base.html.twig" %}
 
-{% block title %}{% endblock %}
+{% block title %}{{ category.name }}{% endblock %}
 
-{% block main %}{% endblock %}
+{% block main %}
+
+    <h2>{{ category.name }}</h2>
+    <p>{{ category.description }}</p>
+
+{% endblock %}

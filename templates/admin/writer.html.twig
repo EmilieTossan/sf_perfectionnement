@@ -1,5 +1,10 @@
 {% extends "admin/base.html.twig" %}
 
-{% block title %}{% endblock %}
+{% block title %}{{ writer.name }}{% endblock %}
 
-{% block main %}{% endblock %}
+{% block main %}
+
+    <h2>{{ writer.name }}</h2>
+    <p>{{ writer.description }}</p>
+
+{% endblock %}
