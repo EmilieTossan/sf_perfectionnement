@@ -18,11 +18,11 @@ class Writer
     #[ORM\Column(type: 'string', length: 255)]
     private $name;
 
-    #[ORM\Column(type: 'text')]
-    private $description;
-
     #[ORM\OneToMany(mappedBy: 'writer', targetEntity: Article::class)]
     private $articles;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $firstname;
 
     public function __construct()
     {
@@ -42,18 +42,6 @@ class Writer
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(string $description): self
-    {
-        $this->description = $description;
 
         return $this;
     }
@@ -84,6 +72,18 @@ class Writer
                 $article->setWriter(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getFirstname(): ?string
+    {
+        return $this->firstname;
+    }
+
+    public function setFirstname(string $firstname): self
+    {
+        $this->firstname = $firstname;
 
         return $this;
     }
