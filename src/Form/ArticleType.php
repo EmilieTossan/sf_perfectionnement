@@ -8,6 +8,7 @@ use App\Entity\Category;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class ArticleType extends AbstractType
 {
@@ -16,8 +17,9 @@ class ArticleType extends AbstractType
         $builder
             ->add('title')
             ->add('content')
-            ->add('published')
-            ->add('date')
+            ->add('published', null, [
+                'data' => true
+            ])
             ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'name'

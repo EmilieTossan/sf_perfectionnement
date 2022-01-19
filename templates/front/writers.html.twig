@@ -6,7 +6,7 @@
 
     {% for writer in writers %}
 
-        <h2><a href="{{ path("writer_show", {'id' : writer.id})}}">{{ writer.name }}</a></h2>
+        <h2><a href="{{ path("show_writer", {'id' : writer.id})}}">{{ writer.firstname }} {{ writer.name }}</a></h2>
 
     {% endfor %}
 

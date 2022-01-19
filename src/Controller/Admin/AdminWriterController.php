@@ -7,6 +7,7 @@ use App\Form\WriterType;
 use App\Repository\WriterRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdminWriterController extends AbstractController
@@ -92,5 +93,17 @@ class AdminWriterController extends AbstractController
         $entityManagerInterface->flush();
 
         return $this->redirectToRoute("admin_writer_list");
+    }
+
+    /**
+     * @Route("admin/search", name="admin_search")
+     */
+    public function frontSearch(Request $request, WriterRepository $writerRepository)
+    {
+        $term = $request->query->get('term');
+        
+        $writers = $writerRepository->searchByTerm($term);
+
+        return $this->render('admin/search.html.twig', ['writers' => $writers, 'term' => $term]);
     }
 }

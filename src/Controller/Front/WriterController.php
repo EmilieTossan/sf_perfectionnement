@@ -3,6 +3,9 @@
 namespace App\Controller\Front;
 
 use App\Repository\WriterRepository;
+use App\Repository\ArticleRepository;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class WriterController extends AbstractController
@@ -26,4 +29,5 @@ class WriterController extends AbstractController
 
         return $this->render("front/writer.html.twig", ['writer' => $writer]);
     }
+
 }
