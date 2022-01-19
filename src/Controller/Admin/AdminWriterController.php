@@ -25,7 +25,7 @@ class AdminWriterController extends AbstractController
         return $this->render("admin/writer.html.twig", ['writer' => $writer]);
     }
 
-    public function adminWriterCreate(Request $request, EntityManagerInterface $entityManagerInterface)
+    public function adminCreateWriter(Request $request, EntityManagerInterface $entityManagerInterface)
     {
         $writer = new Writer();
 
@@ -43,7 +43,7 @@ class AdminWriterController extends AbstractController
         return $this->render("admin/writerform.html.twig", ['writerForm' => $writerForm->createView()]);
     }
 
-    public function adminWriterUpdate(
+    public function adminUpdateWriter(
         $id, 
         WriterRepository $writerRepository, 
         Request $request, 
@@ -65,7 +65,7 @@ class AdminWriterController extends AbstractController
         return $this->render("admin/writerform.html.twig", ['writerForm' => $writerForm->createView()]);
     }
 
-    public function adminWriterDelete(
+    public function adminDeleteWriter(
         $id,
         WriterRepository $writerRepository,
         EntityManagerInterface $entityManagerInterface)

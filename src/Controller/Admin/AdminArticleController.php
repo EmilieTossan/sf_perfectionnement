@@ -11,14 +11,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdminArticleController extends AbstractController
 {
-    public function articleList(ArticleRepository $articleRepository)
+    public function adminArticleList(ArticleRepository $articleRepository)
     {
         $articles = $articleRepository->findAll();
 
         return $this->render("admin/articles.html.twig", ['articles' => $articles]);
     }
 
-    public function showArticle($id, ArticleRepository $articleRepository)
+    public function adminShowArticle($id, ArticleRepository $articleRepository)
     {
         $article = $articleRepository->find($id);
 

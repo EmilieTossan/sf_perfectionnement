@@ -20,11 +20,11 @@ front_search:
 
 admin_article_list:
     path: admin/articles
-    controller: App\Controller\Admin\AdminArticleController::articleList
+    controller: App\Controller\Admin\AdminArticleController::adminArticleList
 
 admin_show_article:
     path: admin/article/{id}
-    controller: App\Controller\Admin\AdminArticleController::showArticle
+    controller: App\Controller\Admin\AdminArticleController::adminShowArticle
 
 admin_create_article:
     path: admin/create/article
@@ -56,15 +56,15 @@ admin_show_category:
 
 admin_create_category:
     path: admin/create/category
-    controller: App\Controller\Admin\AdminCategoryController::adminCategoryCreate
+    controller: App\Controller\Admin\AdminCategoryController::adminCreateCategory
 
 admin_update_category:
     path: admin/update/category
-    controller: App\Controller\Admin\AdminCategoryController::adminCategoryUpdate
+    controller: App\Controller\Admin\AdminCategoryController::adminUpdateCategory
 
 admin_delete_category:
     path: admin/delete/category
-    controller: App\Controller\Admin\AdminCategoryController::adminCategoryDelete
+    controller: App\Controller\Admin\AdminCategoryController::adminDeleteCategory
 
 writer_list:
     path: writers
@@ -84,16 +84,36 @@ admin_show_writer:
 
 admin_create_writer:
     path: admin/create/writer
-    controller: App\Controller\Admin\AdminWriterController::adminWriterCreate
+    controller: App\Controller\Admin\AdminWriterController::adminCreateWriter
 
 admin_update_writer:
     path: admin/update/writer
-    controller: App\Controller\Admin\AdminWriterController::adminWriterUpdate
+    controller: App\Controller\Admin\AdminWriterController::adminUpdateWriter
 
 admin_delete_writer:
     path: admin/delete/writer
-    controller: App\Controller\Admin\AdminWriterController::adminWriterDelete
+    controller: App\Controller\Admin\AdminWriterController::adminDeleteWriter
 
 admin_search:
     path: admin/search
     controller: App\Controller\Admin\AdminWriterController::adminSearch
+
+admin_image_list:
+    path: admin/images
+    controller: App\Controller\Admin\AdminImageController::adminImageList
+
+admin_show_image:
+    path: admin/image/{id}
+    controller: App\Controller\Admin\AdminImageController::adminShowImage
+
+admin_create_image:
+    path: admin/create/image
+    controller: App\Controller\Admin\AdminImageController::adminCreateImage
+
+admin_update_image:
+    path: admin/update/image
+    controller: App\Controller\Admin\AdminImageController::adminUpdateImage
+
+admin_delete_image:
+    path: admin/delete/image
+    controller: App\Controller\Admin\AdminImageController::adminDeleteImage

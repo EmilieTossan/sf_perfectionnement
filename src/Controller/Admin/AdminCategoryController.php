@@ -25,7 +25,7 @@ class AdminCategoryController extends AbstractController
         return $this->render("admin/category.html.twig", ['category' => $category]);
     }
 
-    public function adminCategoryCreate(Request $request, EntityManagerInterface $entityManagerInterface)
+    public function adminCreateCategory(Request $request, EntityManagerInterface $entityManagerInterface)
     {
         $category = new Category();
 
@@ -43,7 +43,7 @@ class AdminCategoryController extends AbstractController
         return $this->render("admin/categoryform.html.twig", ['categoryForm' => $categoryForm->createView()]);
     }
 
-    public function adminCategoryUpdate(
+    public function adminUpdateCategory(
         $id, 
         CategoryRepository $categoryRepository, 
         Request $request, 
@@ -65,7 +65,7 @@ class AdminCategoryController extends AbstractController
         return $this->render("admin/categoryform.html.twig", ['categoryForm' => $categoryForm->createView()]);
     }
 
-    public function adminCategoryDelete(
+    public function adminDeleteCategory(
         $id,
         CategoryRepository $categoryRepository,
         EntityManagerInterface $entityManagerInterface)

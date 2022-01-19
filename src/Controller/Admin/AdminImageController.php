@@ -7,6 +7,7 @@ use App\Form\ImageType;
 use App\Repository\ImageRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdminImageController extends AbstractController
@@ -25,7 +26,10 @@ class AdminImageController extends AbstractController
         return $this->render("admin/image.html.twig", ['image' => $image]);
     }
 
-    public function adminImageCreate(Request $request, EntityManagerInterface $entityManagerInterface)
+    public function adminCreateImage(
+        Request $request,
+        SluggerInterface $sluggerInterface,
+        EntityManagerInterface $entityManagerInterface)
     {
         $image = new Image();
 
@@ -34,7 +38,28 @@ class AdminImageController extends AbstractController
         $imageForm->handleRequest($request);
 
         if($imageForm->isSubmitted() && $imageForm->isValid()){
+
+            $imageFile = $imageForm->get('src')->getData();
+
+            if ($imageFile){
+
+                $originalFileName = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+
+                $safeFileName = $sluggerInterface->slug($originalFileName);
+
+                $newFileName = $safeFileName . '-' . uniqid() . '.' . $imageFile->guessExtension();
+
+                $imageFile->move(
+                    $this->getParameter('images_directory'),
+                    $newFileName
+                );
+
+                $image->setSrc($newFileName);
+
+            }
+
             $entityManagerInterface->persist($image);
+            
             $entityManagerInterface->flush();
 
             return $this->redirectToRoute("admin_image_list");
@@ -43,7 +68,7 @@ class AdminImageController extends AbstractController
         return $this->render("admin/imageform.html.twig", ['imageForm' => $imageForm->createView()]);
     }
 
-    public function adminImageUpdate(
+    public function adminUpdateImage(
         $id, 
         ImageRepository $imageRepository, 
         Request $request, 
@@ -65,7 +90,7 @@ class AdminImageController extends AbstractController
         return $this->render("admin/imageform.html.twig", ['imageForm' => $imageForm->createView()]);
     }
 
-    public function adminImageDelete(
+    public function adminDeleteImage(
         $id,
         ImageRepository $imageRepository,
         EntityManagerInterface $entityManagerInterface)
