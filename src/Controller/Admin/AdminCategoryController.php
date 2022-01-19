@@ -72,7 +72,7 @@ class AdminCategoryController extends AbstractController
     {
         $category = $categoryRepository->find($id);
         
-        $entityManagerInterface->persist($category);
+        $entityManagerInterface->remove($category);
 
         $entityManagerInterface->flush();
 

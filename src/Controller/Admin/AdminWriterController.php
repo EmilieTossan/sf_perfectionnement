@@ -72,7 +72,7 @@ class AdminWriterController extends AbstractController
     {
         $writer = $writerRepository->find($id);
         
-        $entityManagerInterface->persist($writer);
+        $entityManagerInterface->remove($writer);
 
         $entityManagerInterface->flush();
 

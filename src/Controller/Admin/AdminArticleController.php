@@ -73,7 +73,7 @@ class AdminArticleController extends AbstractController
     {
         $article = $articleRepository->find($id);
         
-        $entityManagerInterface->persist($article);
+        $entityManagerInterface->remove($article);
 
         $entityManagerInterface->flush();
 

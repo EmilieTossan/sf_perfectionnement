@@ -55,7 +55,6 @@ class AdminImageController extends AbstractController
                 );
 
                 $image->setSrc($newFileName);
-
             }
 
             $entityManagerInterface->persist($image);
@@ -99,7 +98,6 @@ class AdminImageController extends AbstractController
                 );
 
                 $image->setSrc($newFileName);
-
             }
             
             $entityManagerInterface->persist($image);
@@ -119,7 +117,7 @@ class AdminImageController extends AbstractController
     {
         $image = $imageRepository->find($id);
         
-        $entityManagerInterface->persist($image);
+        $entityManagerInterface->remove($image);
 
         $entityManagerInterface->flush();
 
