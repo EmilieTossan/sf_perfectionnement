@@ -4,9 +4,11 @@ namespace App\Controller\Admin;
 
 use App\Entity\Writer;
 use App\Form\WriterType;
+use Symfony\Component\Mime\Email;
 use App\Repository\WriterRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdminWriterController extends AbstractController
@@ -25,8 +27,11 @@ class AdminWriterController extends AbstractController
         return $this->render("admin/writer.html.twig", ['writer' => $writer]);
     }
 
-    public function adminCreateWriter(Request $request, EntityManagerInterface $entityManagerInterface)
-    {
+    public function adminCreateWriter(
+        Request $request, 
+        EntityManagerInterface $entityManagerInterface,
+        MailerInterface $mailerInterface
+    ){
         $writer = new Writer();
 
         $writerForm = $this->createForm(WriterType::class, $writer);
@@ -34,8 +39,18 @@ class AdminWriterController extends AbstractController
         $writerForm->handleRequest($request);
 
         if($writerForm->isSubmitted() && $writerForm->isValid()){
+
             $entityManagerInterface->persist($writer);
+            
             $entityManagerInterface->flush();
+
+            $email = (new Email())
+                ->from('test@test.com')
+                ->to('test@test.fr')
+                ->subject('Création d\'un auteur')
+                ->html('<p>Vous êtes un nouvel auteur sur le projet.</p>');
+            
+            $mailerInterface->send($email);
 
             return $this->redirectToRoute("admin_writer_list");
         }
