@@ -12,9 +12,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdminWriterController extends AbstractController
 {
-    /**
-     * @Route("admin/writers", name="admin_writer_list")
-     */
     public function adminWriterList(WriterRepository $writerRepository)
     {
         $writers = $writerRepository->findAll();
@@ -22,9 +19,6 @@ class AdminWriterController extends AbstractController
         return $this->render("admin/writers.html.twig", ['writers' => $writers]);
     }
 
-    /**
-     * @Route("admin/writer/{id}", name="admin_show_writer")
-     */
     public function adminShowWriter($id, WriterRepository $writerRepository)
     {
         $writer = $writerRepository->find($id);
@@ -32,9 +26,6 @@ class AdminWriterController extends AbstractController
         return $this->render("admin/writer.html.twig", ['writer' => $writer]);
     }
 
-    /**
-     * @Route("admin/create/writer", name="admin_create_writer")
-     */
     public function adminWriterCreate(Request $request, EntityManagerInterface $entityManagerInterface)
     {
         $writer = new Writer();
@@ -53,9 +44,6 @@ class AdminWriterController extends AbstractController
         return $this->render("admin/writerform.html.twig", ['writerForm' => $writerForm->createView()]);
     }
 
-    /**
-     * @Route("admin/update/writer", name="admin_update_writer")
-     */
     public function adminWriterUpdate(
         $id, 
         WriterRepository $writerRepository, 
@@ -78,9 +66,6 @@ class AdminWriterController extends AbstractController
         return $this->render("admin/writerform.html.twig", ['writerForm' => $writerForm->createView()]);
     }
 
-    /**
-     * @Route("admin/delete/writer", name="admin_delete_writer")
-     */
     public function adminWriterDelete(
         $id,
         WriterRepository $writerRepository,
@@ -95,10 +80,7 @@ class AdminWriterController extends AbstractController
         return $this->redirectToRoute("admin_writer_list");
     }
 
-    /**
-     * @Route("admin/search", name="admin_search")
-     */
-    public function frontSearch(Request $request, WriterRepository $writerRepository)
+    public function adminSearch(Request $request, WriterRepository $writerRepository)
     {
         $term = $request->query->get('term');
         

@@ -12,9 +12,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdminArticleController extends AbstractController
 {
-    /**
-     * @Route("admin/articles", name="admin_article_list")
-     */
     public function articleList(ArticleRepository $articleRepository)
     {
         $articles = $articleRepository->findAll();
@@ -22,9 +19,6 @@ class AdminArticleController extends AbstractController
         return $this->render("admin/articles.html.twig", ['articles' => $articles]);
     }
 
-    /**
-     * @Route("admin/article/{id}", name="admin_show_article")
-     */
     public function showArticle($id, ArticleRepository $articleRepository)
     {
         $article = $articleRepository->find($id);
@@ -32,9 +26,6 @@ class AdminArticleController extends AbstractController
         return $this->render("admin/article.html.twig", ['article' => $article]);
     }
 
-    /**
-     * @Route("admin/create/article", name="admin_create_article")
-     */
     public function adminArticleCreate(Request $request, EntityManagerInterface $entityManagerInterface)
     {
         $article = new Article();
@@ -54,9 +45,6 @@ class AdminArticleController extends AbstractController
         return $this->render("admin/articleform.html.twig", ['articleForm' => $articleForm->createView()]);
     }
 
-    /**
-     * @Route("admin/update/article", name="admin_update_article")
-     */
     public function adminArticleUpdate(
         $id, 
         ArticleRepository $articleRepository, 
@@ -79,9 +67,6 @@ class AdminArticleController extends AbstractController
         return $this->render("admin/articleform.html.twig", ['articleForm' => $articleForm->createView()]);
     }
 
-    /**
-     * @Route("admin/delete/article", name="admin_delete_article")
-     */
     public function adminArticleDelete(
         $id,
         ArticleRepository $articleRepository,

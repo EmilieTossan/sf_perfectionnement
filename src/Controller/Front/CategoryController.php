@@ -8,9 +8,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CategoryController extends AbstractController
 {
-    /**
-     * @Route("categories", name="category_list")
-     */
     public function categoryList(CategoryRepository $categoryRepository)
     {
         $categories = $categoryRepository->findAll();
@@ -18,9 +15,6 @@ class CategoryController extends AbstractController
         return $this->render("front/categories.html.twig", ['categories' => $categories]);
     }
 
-    /**
-     * @Route("category/{id}", name="show_category")
-     */
     public function showCategory($id, CategoryRepository $categoryRepository)
     {
         $category = $categoryRepository->find($id);
