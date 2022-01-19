@@ -8,7 +8,7 @@
 
         {% if article.published == 1 %}
         
-            <h2><a href="{{ path("admin_article_show", {'id' : article.id})}}">{{ article.title }}</a></h2>
+            <h2><a href="{{ path("admin_show_article", {'id' : article.id})}}">{{ article.title }}</a></h2>
             <h3>{{ article.date | date('d/m/Y') }}</h3>
             <h3>{{ article.category.name }}</h3>
             <h4>{{ article.writer.firstname }} {{ article.writer.name }}</h4>

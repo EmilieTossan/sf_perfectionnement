@@ -6,7 +6,7 @@
 
     {% for category in categories %}
 
-        <h2><a href="{{ path("category_show", {'id' : category.id})}}">{{ category.name }}</a></h2>
+        <h2><a href="{{ path("show_category", {'id' : category.id})}}">{{ category.name }}</a></h2>
 
     {% endfor %}
 

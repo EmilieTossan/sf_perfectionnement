@@ -7,7 +7,6 @@ use App\Form\WriterType;
 use App\Repository\WriterRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdminWriterController extends AbstractController
