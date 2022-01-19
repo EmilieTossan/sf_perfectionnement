@@ -71,7 +71,8 @@ class AdminImageController extends AbstractController
     public function adminUpdateImage(
         $id, 
         ImageRepository $imageRepository, 
-        Request $request, 
+        Request $request,
+        SluggerInterface $sluggerInterface,
         EntityManagerInterface $entityManagerInterface)
     {
         $image = $imageRepository->find($id);
@@ -81,7 +82,28 @@ class AdminImageController extends AbstractController
         $imageForm->handleRequest($request);
 
         if($imageForm->isSubmitted() && $imageForm->isValid()){
+
+            $imageFile = $imageForm->get('src')->getData();
+
+            if ($imageFile){
+
+                $originalFileName = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+
+                $safeFileName = $sluggerInterface->slug($originalFileName);
+
+                $newFileName = $safeFileName . '-' . uniqid() . '.' . $imageFile->guessExtension();
+
+                $imageFile->move(
+                    $this->getParameter('images_directory'),
+                    $newFileName
+                );
+
+                $image->setSrc($newFileName);
+
+            }
+            
             $entityManagerInterface->persist($image);
+            
             $entityManagerInterface->flush();
 
             return $this->redirectToRoute("admin_image_list");
