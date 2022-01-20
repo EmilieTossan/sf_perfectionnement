@@ -117,3 +117,11 @@ admin_update_image:
 admin_delete_image:
     path: admin/delete/image
     controller: App\Controller\Admin\AdminImageController::adminDeleteImage
+
+contact:
+    path: contact
+    controller: App\Controller\Front\MessageController::contact
+
+message:
+    path: message
+    controller: App\Controller\Front\MessageController::message
