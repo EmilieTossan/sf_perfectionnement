@@ -41,10 +41,14 @@ class Article
     #[ORM\OneToMany(mappedBy: 'article', targetEntity: Like::class)]
     private $likes;
 
+    #[ORM\OneToMany(mappedBy: 'article', targetEntity: Dislike::class)]
+    private $dislikes;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
         $this->likes = new ArrayCollection();
+        $this->dislikes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -188,6 +192,45 @@ class Article
     {
         foreach($this->likes as $like){
             if($like->getUser() === $user){
+                return true;
+            }
+        }
+    }
+
+    /**
+     * @return Collection|Dislike[]
+     */
+    public function getDislikes(): Collection
+    {
+        return $this->dislikes;
+    }
+
+    public function addDislike(Dislike $dislike): self
+    {
+        if (!$this->dislikes->contains($dislike)) {
+            $this->dislikes[] = $dislike;
+            $dislike->setArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDislike(Dislike $dislike): self
+    {
+        if ($this->dislikes->removeElement($dislike)) {
+            // set the owning side to null (unless already changed)
+            if ($dislike->getArticle() === $this) {
+                $dislike->setArticle(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function isDislikedByUser(User $user)
+    {
+        foreach($this->dislikes as $dislike){
+            if($dislike->getUser() === $user){
                 return true;
             }
         }

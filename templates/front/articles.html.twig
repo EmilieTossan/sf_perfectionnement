@@ -1,5 +1,13 @@
 {% extends "front/base.html.twig" %}
 
+{% block css %}
+
+a, a:link, a:active, a:hover, a:focus, a:visited{
+    text-decoration : none;
+}
+
+{% endblock %}
+
 {% block title %}Articles{% endblock %}
 
 {% block main %}
@@ -8,9 +16,13 @@
 
         {% if article.published %}
 
-            <h2><a href="{{ path("show_article", {'id' : article.id})}}">{{ article.title }}</a></h2>
-            
-            <a href="{{ path("article_like"), {'id' : article.id} }}" class="btn btn-link js-likes">
+            <h2><a href="{{ path("show_article", {'id' : article.id}) }}">{{ article.title }}</a></h2>
+
+            <a href="{{ path("article_like", {'id' : article.id}) }}" class="btn btn-link js-likes">
+
+                <span class="js-likes">{{ article.likes | length }}</span>
+
+                <span class="js-label">J'aime</span>
 
                 {% if app.user and article.isLikedByUser(app.user) %}
                 
@@ -22,49 +34,28 @@
 
                 {% endif %}
 
-                    <span class="js-likes">{{ articles.likes | length }}</span>
-                    <span class="js-label">J'aime</span>
+            </a>
+
+            <a href="{{ path("article_dislike", {'id' : article.id}) }}" class="btn btn-link js-dislikes">
+
+                <span class="js-dislikes">{{ article.dislikes | length }}</span>
+
+                <span class="js-label">Je n'aime pas</span>
+            
+                {% if app.user and article.isDislikedByUser(app.user) %}
+
+                    <i class="fas fa-thumbs-dowm"></i>
+
+                {% else %}
+                    
+                    <i class="far fa-thumbs-dowm"></i>
+
+                {% endif %}
 
             </a>
 
         {% endif %}
 
     {% endfor %}
-
-{% endblock %}
-
-{% block js %}
-
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
-<script>
-
-    function onClickLike(event){
-        console.log
-        event.preventDefault();
-        const url = $this.href;
-        const spanCount = this.querySelector('span.js-likes');
-        const icone = this.querySelector('i');
-        axios.get(url).then(function (response){
-            spanCount.textContent = response.data.likes;
-            if (icone.classList.contains('fas')) {
-                icone.classList.replace('fas', 'far')                
-            } else {
-                icone.classList.replace('far', 'fas')
-            }
-        }).catch(function(error){
-            if (error.response.status === 403) {
-                window.alert("Vous devez vous connecter.")
-            } else {
-                window.alert("Une erreur s'est produite.")
-            }
-        })
-    }
-
-    document.querySelectorAll('a.js-likes').forEach(function (link){
-        link.addEventListener('click', onClickLike);
-    })
-    
-</script>
 
 {% endblock %}
