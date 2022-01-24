@@ -7,10 +7,10 @@ use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserController extends AbstractController
@@ -50,7 +50,7 @@ class UserController extends AbstractController
                 ->from('test@test.com')
                 ->to($user_email)
                 ->subject('Inscription')
-                ->htmlTemplate('front/mail.html.twig')
+                ->htmlTemplate('front/email.html.twig')
                 ->context([
                     'name' => $user_name,
                     'firstname' => $user_firstname
@@ -106,11 +106,11 @@ class UserController extends AbstractController
      */
     public function deleteUser(UserRepository $userRepository, EntityManagerInterface $entityManagerInterface)
     {
-        $user_connect = $this->getUser();
+        $user_connected = $this->getUser();
 
-        $user_mail = $user_connect->getUserIdentifier();
+        $user_email = $user_connected->getUserIdentifier();
 
-        $user = $userRepository->findOneBy(['email' => $user_mail]);
+        $user = $userRepository->findOneBy(['email' => $user_email]);
 
         $entityManagerInterface->remove($user);
 

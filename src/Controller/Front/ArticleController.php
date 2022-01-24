@@ -19,6 +19,7 @@ class ArticleController extends AbstractController
         $articles = $articleRepository->findAll();
 
         return $this->render("front/articles.html.twig", ['articles' => $articles]);
+        dd("Liste d'articles");
     }
 
     public function showArticle($id, ArticleRepository $articleRepository)
@@ -122,9 +123,9 @@ class ArticleController extends AbstractController
     public function dislikeArticle(
         $id,
         ArticleRepository $articleRepository,
+        EntityManagerInterface $entityManagerInterface,
         DislikeRepository $dislikeRepository,
-        LikeRepository $likeRepository,
-        EntityManagerInterface $entityManagerInterface
+        LikeRepository $likeRepository
     ){
         $article = $articleRepository->find($id);
         $user = $this->getUser();
@@ -139,12 +140,10 @@ class ArticleController extends AbstractController
         }
 
         if ($article->isDislikedByUser($user)){
-            $dislike = $dislikeRepository->findOneBy(
-                [
-                    'article' => $article,
-                    'user' => $user
-                ]
-            );
+            $dislike = $dislikeRepository->findOneBy([
+                'article' => $article,
+                'user' => $user
+            ]);
 
             $entityManagerInterface->remove($dislike);
             $entityManagerInterface->flush();

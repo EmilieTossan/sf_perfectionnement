@@ -24,6 +24,8 @@ a, a:link, a:active, a:hover, a:focus, a:visited{
 
                 <span class="js-label">J'aime</span>
 
+                <!-- Icône "J'aime" -->
+
                 {% if app.user and article.isLikedByUser(app.user) %}
                 
                     <i class="fas fa-thumbs-up"></i>
@@ -42,13 +44,15 @@ a, a:link, a:active, a:hover, a:focus, a:visited{
 
                 <span class="js-label">Je n'aime pas</span>
             
+                <!-- Icône "Je n'aime pas" -->
+
                 {% if app.user and article.isDislikedByUser(app.user) %}
 
-                    <i class="fas fa-thumbs-dowm"></i>
+                    <i class="fas fa-thumbs-down"></i>
 
                 {% else %}
                     
-                    <i class="far fa-thumbs-dowm"></i>
+                    <i class="far fa-thumbs-down"></i>
 
                 {% endif %}
 

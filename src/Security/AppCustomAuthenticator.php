@@ -50,12 +50,20 @@ class AppCustomAuthenticator extends AbstractLoginFormAuthenticator
         }
 
         // For example:
-        // return new RedirectResponse($this->urlGenerator->generate('article_list'));
-        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+        return new RedirectResponse($this->urlGenerator->generate('article_list'));
+        throw new \Exception('article_list'.__FILE__);
     }
 
     protected function getLoginUrl(Request $request): string
     {
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);
+    }
+
+    public function supports(Request $request): bool
+    {
+    return 'app_login' === $request->attributes->get('_route') && $request->isMethod('POST');
+
+    // Original code
+    // return $request->isMethod('POST') && $this->getLoginUrl($request) === $request->getPathInfo();
     }
 }
